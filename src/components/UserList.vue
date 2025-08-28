@@ -2,11 +2,10 @@
   <div>
     <h2>لیست کاربران</h2>
 
-    <!-- وضعیت بارگذاری -->
+
     <p v-if="loading">در حال بارگذاری...</p>
     <p v-if="error" style="color: red">{{ error }}</p>
 
-    <!-- جدول کاربران -->
     <table v-if="!loading && !error" class="user-table">
       <thead>
         <tr>
@@ -39,12 +38,11 @@ const error = ref("");
 
 onMounted(async () => {
   try {
-    // 🔹 fetch مستقیم از API بدون proxy
     const res = await fetch("https://dummyjson.com/users");
     if (!res.ok) throw new Error("خطا در دریافت اطلاعات");
 
     const data = await res.json();
-    users.value = data.users; // فیلد users در API موجود است
+    users.value = data.users;
   } catch (err) {
     error.value = "خطا در گرفتن اطلاعات کاربران: " + err.message;
     console.error(err);
